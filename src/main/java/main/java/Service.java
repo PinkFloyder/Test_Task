@@ -1,7 +1,5 @@
 package main.java;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -37,7 +35,7 @@ public class Service {
                 .collect(Collectors.toList());
     }
 
-     public @NotNull int getMax() {
+     public int getMax() {
         if (list.size() == 0)
             return -1;
         City[] array = list.toArray(new City[0]);
