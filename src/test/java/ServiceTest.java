@@ -1,7 +1,6 @@
 import main.java.City;
 import org.junit.jupiter.api.*;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
@@ -19,13 +18,12 @@ public class ServiceTest {
 
     @Test
     public void firstTask() throws FileNotFoundException {
-        Scanner scanner = new Scanner(new File(main.java.Service.FILE_ADDRESS)).useDelimiter(";");
-        int count = 0;
-        while (scanner.hasNext()) {
-            scanner.next();
-            count++;
-        }
-        Assertions.assertEquals((count / 5), list.size());
+        List<City> cities = Arrays.asList(
+                new City("Адыгейск", "Адыгея", "Южный", 12248, "1973"),
+                new City("Екатеринбург", "Свердловская область", "Северный", 1000000, "1720"),
+                new City("Москва", "Московская область", "Западный", 10000000, "1670"));
+
+        Assertions.assertEquals(cities, list);
     }
 
     @Test
