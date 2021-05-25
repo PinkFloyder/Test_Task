@@ -12,9 +12,14 @@ public class Service {
 
     public void readFile() throws FileNotFoundException {
         File file = new File(FILE_ADDRESS);
+        if (!file.exists()) {
+            throw new FileNotFoundException();
+        }
         Scanner scanner = new Scanner(file).useDelimiter(";");
         while (scanner.hasNext()) {
-            list.add(new City(scanner.next(),
+            list.add(new City(
+                    scanner.nextInt(),
+                    scanner.next(),
                     scanner.next(),
                     scanner.next(),
                     scanner.nextInt(),

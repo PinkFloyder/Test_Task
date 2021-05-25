@@ -17,17 +17,17 @@ public class ServiceTest {
     }
 
     @Test
-    public void firstTask() throws FileNotFoundException {
+    public void testReadFile() throws FileNotFoundException {
         List<City> cities = Arrays.asList(
-                new City("Адыгейск", "Адыгея", "Южный", 12248, "1973"),
-                new City("Екатеринбург", "Свердловская область", "Северный", 1000000, "1720"),
-                new City("Москва", "Московская область", "Западный", 10000000, "1670"));
+                new City(1, "Адыгейск", "Адыгея", "Южный", 12248, "1973"),
+                new City(2, "Екатеринбург", "Свердловская область", "Северный", 1000000, "1720"),
+                new City(3, "Москва", "Московская область", "Западный", 10000000, "1670"));
 
         Assertions.assertEquals(cities, list);
     }
 
     @Test
-    public void secondTask1() {
+    public void testSortByName() {
         List<City> sortedList = service.sortByName();
         City min = list.stream().min(Comparator.comparing(City::getName)).get();
         City max = list.stream().max(Comparator.comparing(City::getName)).get();
@@ -37,7 +37,7 @@ public class ServiceTest {
     }
 
     @Test
-    public void secondTask2() {
+    public void testSortByDistrict() {
         List<City> sortedList = service.sortByDistrict();
         City min = list.stream().min(Comparator.comparing(City::getDistrict).thenComparing(City::getName)).get();
         City max = list.stream().max(Comparator.comparing(City::getDistrict).reversed().thenComparing(City::getName).reversed()).get();
@@ -47,7 +47,7 @@ public class ServiceTest {
     }
 
     @Test
-    public void threeTask() {
+    public void testMaxPopulation() {
         int index = service.getMax();
 
         City entity = list.stream()
@@ -59,7 +59,7 @@ public class ServiceTest {
     }
 
     @Test
-    public void fourTask() {
+    public void testGroupRegion() {
         Map<String, Long> map = new TreeMap<>();
         City entity;
         for (int i = 0; i < list.size(); i++) {

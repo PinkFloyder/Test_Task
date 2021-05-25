@@ -7,9 +7,14 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args)  {
         Service service = new Service();
-        service.readFile();
+        try {
+            service.readFile();
+        } catch (FileNotFoundException e ) {
+            System.out.println("Файла нет");
+            e.printStackTrace();
+        }
         while (true) {
             System.out.println("Что нужно, коллега?\n" +
                     "1 - отсортировать по наименованию\n" +
@@ -42,6 +47,7 @@ public class Main {
                     for (Map.Entry<String, Long> temp : map.entrySet()) {
                         System.out.println(temp.getKey() + " - " + temp.getValue());
                     }
+                    break;
                 }
                 default:
                     return;
