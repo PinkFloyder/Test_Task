@@ -1,26 +1,25 @@
-import main.java.Entity;
-import main.java.Main;
+import main.java.City;
 import org.junit.jupiter.api.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-public class First_Module {
+public class ServiceTest {
 
-     private Main main;
-     private List<Entity> list;
+     private main.java.Service service;
+     private List<City> list;
 
     @BeforeEach
     public void start() throws FileNotFoundException {
-        main = new Main();
-        main.readFile();
-        list = main.getList();
+        service = new main.java.Service();
+        service.readFile();
+        list = service.getList();
     }
 
     @Test
     public void firstTask() throws FileNotFoundException {
-        Scanner scanner = new Scanner(new File(Main.FILE_ADDRESS)).useDelimiter(";");
+        Scanner scanner = new Scanner(new File(main.java.Service.FILE_ADDRESS)).useDelimiter(";");
         int count = 0;
         while (scanner.hasNext()) {
             scanner.next();
@@ -31,9 +30,9 @@ public class First_Module {
 
     @Test
     public void secondTask1() {
-        List<Entity> sortedList = main.sortByName();
-        Entity min = list.stream().min(Comparator.comparing(Entity::getName)).get();
-        Entity max = list.stream().max(Comparator.comparing(Entity::getName)).get();
+        List<City> sortedList = service.sortByName();
+        City min = list.stream().min(Comparator.comparing(City::getName)).get();
+        City max = list.stream().max(Comparator.comparing(City::getName)).get();
 
         Assertions.assertEquals(min, sortedList.get(0));
         Assertions.assertEquals(max, sortedList.get(sortedList.size() - 1));
@@ -41,9 +40,9 @@ public class First_Module {
 
     @Test
     public void secondTask2() {
-        List<Entity> sortedList = main.sortByDistrict();
-        Entity min = list.stream().min(Comparator.comparing(Entity::getDistrict).thenComparing(Entity::getName)).get();
-        Entity max = list.stream().max(Comparator.comparing(Entity::getDistrict).reversed().thenComparing(Entity::getName).reversed()).get();
+        List<City> sortedList = service.sortByDistrict();
+        City min = list.stream().min(Comparator.comparing(City::getDistrict).thenComparing(City::getName)).get();
+        City max = list.stream().max(Comparator.comparing(City::getDistrict).reversed().thenComparing(City::getName).reversed()).get();
 
         Assertions.assertEquals(min, sortedList.get(0));
         Assertions.assertEquals(max, sortedList.get(sortedList.size() - 1));
@@ -51,10 +50,10 @@ public class First_Module {
 
     @Test
     public void threeTask() {
-        int index = main.getMax();
+        int index = service.getMax();
 
-        Entity entity = list.stream()
-                .max(Comparator.comparing(Entity::getPopulation))
+        City entity = list.stream()
+                .max(Comparator.comparing(City::getPopulation))
                 .get();
 
         Assertions.assertEquals(index, list.indexOf(entity));
@@ -64,7 +63,7 @@ public class First_Module {
     @Test
     public void fourTask() {
         Map<String, Long> map = new TreeMap<>();
-        Entity entity;
+        City entity;
         for (int i = 0; i < list.size(); i++) {
             entity = list.get(i);
             if (map.containsKey(entity.getRegion())) {
@@ -73,7 +72,7 @@ public class First_Module {
                 map.put(entity.getRegion(), (long) 1);
             }
         }
-        Assertions.assertEquals(map, main.groupByRegion());
+        Assertions.assertEquals(map, service.groupByRegion());
     }
 
 }

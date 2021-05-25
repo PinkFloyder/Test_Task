@@ -2,7 +2,7 @@ package main.java;
 
 import java.util.Objects;
 
-public class Entity {
+public class City {
 
     private String name;
     private String region;
@@ -10,7 +10,7 @@ public class Entity {
     private int population;
     private String foundation;
 
-    public Entity(String name, String region, String district, int population, String foundation) {
+    public City(String name, String region, String district, int population, String foundation) {
         this.name = name;
         this.region = region;
         this.district = district;
@@ -73,8 +73,8 @@ public class Entity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Entity entity = (Entity) o;
-        return population == entity.population && Objects.equals(name, entity.name) && Objects.equals(region, entity.region) && Objects.equals(district, entity.district) && Objects.equals(foundation, entity.foundation);
+        City city = (City) o;
+        return population == city.population && Objects.equals(name, city.name) && Objects.equals(region, city.region) && Objects.equals(district, city.district) && Objects.equals(foundation, city.foundation);
     }
 
     @Override
