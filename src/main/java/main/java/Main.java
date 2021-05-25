@@ -13,7 +13,7 @@ public class Main {
             service.readFile();
         } catch (FileNotFoundException e ) {
             System.out.println("Файла нет");
-            e.printStackTrace();
+            return;
         }
         Scanner scanner = new Scanner(System.in);
 
@@ -24,18 +24,18 @@ public class Main {
                 "4 - количества городов в разрезе регионов");
 
         while (!scanner.hasNext("q")) {
-            int response = scanner.nextInt();
+            String response = scanner.next();
             switch (response) {
-                case 1: {
+                case "1": {
                     service.sortByName().forEach(System.out::println);
                     break;
                 }
-                case 2: {
+                case "2": {
                     service.sortByDistrict().forEach(System.out::println);
                     break;
                 }
-                case 3: {
-                    int index = service.getMax();
+                case "3": {
+                    int index = service.MaxPopulation();
                     if (index == -1) {
                         System.out.println("Список пуст");
                     } else {
@@ -43,7 +43,7 @@ public class Main {
                     }
                     break;
                 }
-                case 4: {
+                case "4": {
                     Map<String, Long> map = service.groupByRegion();
                     for (Entry<String, Long> temp : map.entrySet()) {
                         System.out.println(temp.getKey() + " - " + temp.getValue());

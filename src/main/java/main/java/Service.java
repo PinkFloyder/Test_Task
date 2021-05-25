@@ -40,7 +40,7 @@ public class Service {
                 .collect(Collectors.toList());
     }
 
-     public int getMax() {
+     public int MaxPopulation() {
         if (list.size() == 0)
             return -1;
         City[] array = list.toArray(new City[0]);

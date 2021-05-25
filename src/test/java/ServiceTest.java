@@ -18,7 +18,7 @@ public class ServiceTest {
     }
 
     @Test
-    public void testReadFile() throws FileNotFoundException {
+    public void ReadFileTest() throws FileNotFoundException {
         List<City> cities = Arrays.asList(
                 new City(1, "Адыгейск", "Адыгея", "Южный", 12248, "1973"),
                 new City(2, "Екатеринбург", "Свердловская область", "Северный", 1000000, "1720"),
@@ -28,49 +28,45 @@ public class ServiceTest {
     }
 
     @Test
-    public void testSortByName() {
+    public void sortByNameTest() {
         List<City> sortedList = service.sortByName();
-        City min = list.stream().min(Comparator.comparing(City::getName)).get();
-        City max = list.stream().max(Comparator.comparing(City::getName)).get();
+        List<City> expectedList = Arrays.asList(
+                new City(1, "Адыгейск", "Адыгея", "Южный", 12248, "1973"),
+                new City(2, "Екатеринбург", "Свердловская область", "Северный", 1000000, "1720"),
+                new City(3, "Москва", "Московская область", "Западный", 10000000, "1670"));
 
-        assertEquals(min, sortedList.get(0));
-        assertEquals(max, sortedList.get(sortedList.size() - 1));
+        assertEquals(sortedList, expectedList);
     }
 
     @Test
-    public void testSortByDistrict() {
+    public void sortByDistrictTest() {
         List<City> sortedList = service.sortByDistrict();
-        City min = list.stream().min(Comparator.comparing(City::getDistrict).thenComparing(City::getName)).get();
-        City max = list.stream().max(Comparator.comparing(City::getDistrict).reversed().thenComparing(City::getName).reversed()).get();
+        List<City> expectedList = Arrays.asList(
+                new City(3, "Москва", "Московская область", "Западный", 10000000, "1670"),
+                new City(2, "Екатеринбург", "Свердловская область", "Северный", 1000000, "1720"),
+                new City(1, "Адыгейск", "Адыгея", "Южный", 12248, "1973"));
 
-        assertEquals(min, sortedList.get(0));
-        assertEquals(max, sortedList.get(sortedList.size() - 1));
+        assertEquals(sortedList, expectedList);
     }
 
     @Test
-    public void testMaxPopulation() {
-        int index = service.getMax();
+    public void MaxPopulationTest() {
+        int expectedIndex = 2;
+        int expectedPopulation = 10000000;
 
-        City entity = list.stream()
-                .max(Comparator.comparing(City::getPopulation))
-                .get();
+        int index = service.MaxPopulation();
 
-        assertEquals(index, list.indexOf(entity));
-        assertEquals(list.get(index), entity);
+        assertEquals(expectedIndex, index);
+        assertEquals(expectedPopulation, list.get(index).getPopulation());
     }
 
     @Test
-    public void testGroupRegion() {
+    public void GroupRegionTest() {
         Map<String, Long> map = new TreeMap<>();
-        City entity;
-        for (int i = 0; i < list.size(); i++) {
-            entity = list.get(i);
-            if (map.containsKey(entity.getRegion())) {
-                map.put(entity.getRegion(), map.get(entity.getRegion()) + 1);
-            } else {
-                map.put(entity.getRegion(), (long) 1);
-            }
-        }
+        map.put("Адыгея", (long) 1);
+        map.put("Свердловская область", (long) 1);
+        map.put("Московская область", (long) 1);
+
         assertEquals(map, service.groupByRegion());
     }
 
