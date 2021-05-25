@@ -2,6 +2,7 @@ package main.java;
 
 import java.io.FileNotFoundException;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 public class Main {
@@ -44,7 +45,7 @@ public class Main {
                 }
                 case 4: {
                     Map<String, Long> map = service.groupByRegion();
-                    for (Map.Entry<String, Long> temp : map.entrySet()) {
+                    for (Entry<String, Long> temp : map.entrySet()) {
                         System.out.println(temp.getKey() + " - " + temp.getValue());
                     }
                     break;
