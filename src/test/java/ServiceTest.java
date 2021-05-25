@@ -3,6 +3,7 @@ import org.junit.jupiter.api.*;
 
 import java.io.FileNotFoundException;
 import java.util.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ServiceTest {
 
@@ -23,7 +24,7 @@ public class ServiceTest {
                 new City(2, "Екатеринбург", "Свердловская область", "Северный", 1000000, "1720"),
                 new City(3, "Москва", "Московская область", "Западный", 10000000, "1670"));
 
-        Assertions.assertEquals(cities, list);
+        assertEquals(cities, list);
     }
 
     @Test
@@ -32,8 +33,8 @@ public class ServiceTest {
         City min = list.stream().min(Comparator.comparing(City::getName)).get();
         City max = list.stream().max(Comparator.comparing(City::getName)).get();
 
-        Assertions.assertEquals(min, sortedList.get(0));
-        Assertions.assertEquals(max, sortedList.get(sortedList.size() - 1));
+        assertEquals(min, sortedList.get(0));
+        assertEquals(max, sortedList.get(sortedList.size() - 1));
     }
 
     @Test
@@ -42,8 +43,8 @@ public class ServiceTest {
         City min = list.stream().min(Comparator.comparing(City::getDistrict).thenComparing(City::getName)).get();
         City max = list.stream().max(Comparator.comparing(City::getDistrict).reversed().thenComparing(City::getName).reversed()).get();
 
-        Assertions.assertEquals(min, sortedList.get(0));
-        Assertions.assertEquals(max, sortedList.get(sortedList.size() - 1));
+        assertEquals(min, sortedList.get(0));
+        assertEquals(max, sortedList.get(sortedList.size() - 1));
     }
 
     @Test
@@ -54,8 +55,8 @@ public class ServiceTest {
                 .max(Comparator.comparing(City::getPopulation))
                 .get();
 
-        Assertions.assertEquals(index, list.indexOf(entity));
-        Assertions.assertEquals(list.get(index), entity);
+        assertEquals(index, list.indexOf(entity));
+        assertEquals(list.get(index), entity);
     }
 
     @Test
@@ -70,7 +71,7 @@ public class ServiceTest {
                 map.put(entity.getRegion(), (long) 1);
             }
         }
-        Assertions.assertEquals(map, service.groupByRegion());
+        assertEquals(map, service.groupByRegion());
     }
 
 }
